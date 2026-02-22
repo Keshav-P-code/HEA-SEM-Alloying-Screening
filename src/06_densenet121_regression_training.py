@@ -53,7 +53,6 @@ WEIGHT_DECAY = 1e-4
 SEED         = 42
 NUM_WORKERS  = 0
 
-# Optional: keep False per your request (no stratification).
 # If you later want similar H_norm distributions across splits, set to True to stratify by H_norm quantile bins.
 STRATIFY_ON_TARGET = True
 N_BINS_FOR_TARGET  = 10
@@ -271,7 +270,7 @@ def epoch_pass(loader, train=False):
 # --------------------- Train with early stopping on Val MAE ---------------------
 hist = {"epoch": [], "train_mae": [], "val_mae": [], "train_rmse": [], "val_rmse": [], "train_r2": [], "val_r2": []}
 best_val_mae = float("inf")
-SAVE_PATH = os.path.join(OUTPUT_DIR, "best_resnet18_regression.pt")  # kept EXACTLY the same on purpose
+SAVE_PATH = os.path.join(OUTPUT_DIR, "best_densenet121_regression.pt")  # kept EXACTLY the same on purpose
 no_improve = 0
 
 for ep in range(1, EPOCHS+1):
