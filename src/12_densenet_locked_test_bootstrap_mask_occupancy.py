@@ -1,37 +1,3 @@
-# =============================================================================
-# REVIEWER 1 + REVIEWER 2
-# FINAL LOCKED-TEST BOOTSTRAP + MASK OCCUPANCY ANALYSIS
-#
-# INPUTS:
-#   1. Existing 121-particle locked-test DenseNet121 predictions CSV
-#   2. ORIGINAL masks used by DenseNet121 training/testing
-#
-# NOT USED:
-#   - bse_baseline_features_originals.csv
-#   - Original-resolution Area_px
-#   - Raw BSE intensity descriptors
-#
-# EXACT TRAINING MASK PREPROCESSING:
-#   cv2.imread(..., IMREAD_UNCHANGED)
-#   ensure_binary()
-#   cv2.resize(mask, (512,512), INTER_NEAREST)
-#
-# ANALYSES:
-#   1. Locked-test integrity checks
-#   2. Overall MAE, RMSE, R2 + bootstrap MAE CI
-#   3. Three H_norm regimes + bootstrap MAE CIs
-#   4. Seven H_norm bins + bootstrap MAE CIs
-#   5. Low-vs-high MAE difference + bootstrap CI
-#   6. Resized-mask occupancy vs absolute error
-#   7. Resized-mask occupancy vs signed residual
-#   8. Occupancy quartiles + bootstrap MAE CIs
-#   9. Within-regime Spearman associations
-#  10. Seven publication-quality figures
-#
-# NO MODEL TRAINING OR INFERENCE
-# NO AUGMENTED PARTICLES
-# =============================================================================
-
 
 # =============================================================================
 # 0. IMPORTS
@@ -51,28 +17,23 @@ from sklearn.metrics import r2_score
 # =============================================================================
 # 1. PATHS — CHECK THESE
 # =============================================================================
-
-BASE = Path(
-    r"C:\Users\Keshav's\OneDrive - University of New Brunswick"
-    r"\Testrun-3Sep9\Data-SEM-EDS\Images\Data-verse Ready"
-    r"\bse_baseline_results"
+(
+ BASE = Path(r"PATH_TO_BSE_BASELINE_RESULTS")
 )
 
 PREDICTIONS_CSV = (
     BASE
     / "analysis_v2_locked_densenet_test"
-    / "reviewer3_locked_test_particle_predictions.csv"
+    / "locked_test_particle_predictions.csv"
 )
 
 # ORIGINAL MASK DIRECTORY FROM YOUR DENSENET TRAINING SCRIPT.
 # Update username/path if the masks are now elsewhere.
-MASKS_DIR = Path(
-    r"C:\Users\Keshav's\OneDrive - University of New Brunswick"
-    r"\Testrun-3Sep9\Data-SEM-EDS\Images"
-    r"\Augmented_output_masks\masks"
+MASKS_DIR = Path(r"PATH_TO_ORIGINAL_PARTICLE_MASKS")
+
 )
 
-OUT = BASE / "reviewer_1_2_FINAL_NO_BSE_FEATURES"
+OUT = BASE / "FINAL_NO_BSE_FEATURES"
 
 OUT.mkdir(parents=True, exist_ok=True)
 
@@ -1451,7 +1412,7 @@ df.to_csv(
 # =============================================================================
 
 manifest = [
-    "REVIEWER 1 + REVIEWER 2 — FINAL ANALYSIS",
+    " FINAL ANALYSIS",
     "",
     f"Predictions: {PREDICTIONS_CSV}",
     f"Original masks: {MASKS_DIR}",
